@@ -1,0 +1,19 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Product {
+  id        String   @id @default(uuid())
+  name      String
+  price     Decimal
+  sku       String   @unique
+  stock     Int      @default(0)
+  metadata  Json     // The polymorphic variant data
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
